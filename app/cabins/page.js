@@ -1,3 +1,8 @@
-export default function Page() {
-  return <h1>Cabins page</h1>;
+export const metadata = { title: "Oasis Cabins" };
+export default async function Page() {
+  return (
+    <div>
+      <h1>Cabins page</h1>
+    </div>
+  );
 }
