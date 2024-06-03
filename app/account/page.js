@@ -1,4 +1,8 @@
 export const metadata = { title: "Guest area" };
 export default function Page() {
-  return <h1>Your account</h1>;
+  return (
+    <h2 className="mb-7 text-2xl font-semibold text-accent-400">
+      Welcome, Gojo
+    </h2>
+  );
 }
