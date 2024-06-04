@@ -1,12 +1,10 @@
-import CabinCard from "../_components/CabinCard";
-import { getCabins } from "../_lib/data-service";
+import { Suspense } from "react";
+import { CabinList } from "../_components/CabinList";
+import Spinner from "../_components/Spinner";
 
 export const metadata = { title: "Oasis Cabins" };
-export default async function Page() {
+export default function Page() {
   // CHANGE
-  const cabins = await getCabins();
-  console.log(cabins);
-
   return (
     <div>
       <h1 className="mb-5 text-4xl font-medium text-accent-400">
@@ -21,13 +19,10 @@ export default async function Page() {
         Welcome to paradise.
       </p>
 
-      {cabins.length > 0 && (
-        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:gap-12 xl:gap-14">
-          {cabins.map((cabin) => (
-            <CabinCard cabin={cabin} key={cabin.id} />
-          ))}
-        </div>
-      )}
+      {/* fallback loader overriders the cabins loading.js with the global one */}
+      <Suspense fallback={<Spinner name="cabin" />}>
+        <CabinList />
+      </Suspense>
     </div>
   );
 }
