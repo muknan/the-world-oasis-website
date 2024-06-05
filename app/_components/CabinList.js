@@ -1,7 +1,11 @@
+import { unstable_noStore } from "next/cache";
 import { getCabins } from "../_lib/data-service";
 import CabinCard from "./CabinCard";
 
 export async function CabinList() {
+  // Opting out of data caching
+  // unstable_noStore();
+
   const cabins = await getCabins();
 
   if (!cabins.length) return null;

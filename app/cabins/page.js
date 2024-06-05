@@ -2,7 +2,11 @@ import { Suspense } from "react";
 import { CabinList } from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
 
+export const revalidate = 3600;
+// export const revalidate = 15;
+
 export const metadata = { title: "Oasis Cabins" };
+
 export default function Page() {
   // CHANGE
   return (
@@ -19,6 +23,7 @@ export default function Page() {
         Welcome to paradise.
       </p>
 
+      {/* Dynamic loading, this is the only party of page thats dynamic */}
       {/* fallback loader overriders the cabins loading.js with the global one */}
       <Suspense fallback={<Spinner name="cabin" />}>
         <CabinList />
