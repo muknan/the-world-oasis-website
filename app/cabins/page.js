@@ -10,8 +10,6 @@ export const revalidate = 3600;
 export const metadata = { title: "Oasis Cabins" };
 
 export default function Page({ searchParams }) {
-  console.log(searchParams);
-
   const filter = searchParams?.capacity ?? "all";
 
   // CHANGE
@@ -35,6 +33,7 @@ export default function Page({ searchParams }) {
 
       {/* Dynamic loading, this is the only party of page thats dynamic */}
       {/* fallback loader overriders the cabins loading.js with the global one */}
+      {/* "key" to make each filter in CabinList displays a spinner */}
       <Suspense fallback={<Spinner name="cabin" />} key={filter}>
         <CabinList filter={filter} />
       </Suspense>
