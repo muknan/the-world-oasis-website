@@ -39,14 +39,14 @@ export default function Page() {
         </div>
 
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <label htmlFor="nationality">Where are you from?</label>
             <img
               src={countryFlag}
               alt="Country flag"
               className="h-5 rounded-sm"
             />
-          </div>
+          </div> */}
 
           {/* <SelectCountry
             name="nationality"
