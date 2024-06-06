@@ -20,7 +20,6 @@ function DateSelector({ settings, cabin, bookedDates }) {
   const discount = 23;
   const numNights = 23;
   const cabinPrice = 23;
-  const range = { from: null, to: null };
 
   // SETTINGS
   const { minBookingLength, maxBookingLength } = settings;
@@ -29,6 +28,8 @@ function DateSelector({ settings, cabin, bookedDates }) {
     <div className="flex flex-col justify-between">
       <DayPicker
         className="place-self-center pt-12"
+        onSelect={setRange}
+        selected={range}
         mode="range"
         min={minBookingLength + 1}
         max={maxBookingLength}

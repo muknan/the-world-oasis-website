@@ -1,4 +1,4 @@
-import Cabin from "@/app/_components/Cabin";
+import CabinDetails from "@/app/_components/CabinDetails";
 import Reservation from "@/app/_components/Reservation";
 import Spinner from "@/app/_components/Spinner";
 import { getCabin, getCabins } from "@/app/_lib/data-service";
@@ -27,11 +27,12 @@ export default async function Page({ params }) {
 
   return (
     <div className="mx-auto mt-8 max-w-6xl">
-      <Cabin cabin={cabin} />
+      <CabinDetails cabin={cabin} />
       <div>
         <h2 className="mb-10 text-center text-4xl font-semibold text-accent-400">
           Reserve {cabin.name} today. Pay on arrival.
         </h2>
+
         <Suspense fallback={<Spinner />}>
           <Reservation cabin={cabin} />
         </Suspense>
