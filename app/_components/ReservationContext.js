@@ -1,4 +1,4 @@
-"use cliet";
+"use client";
 
 import { createContext, useContext, useState } from "react";
 
@@ -9,8 +9,12 @@ const initialRange = { from: undefined, to: undefined };
 function ReservationProvider({ children }) {
   const [range, setRange] = useState(initialRange);
 
+  function resetRange() {
+    setRange(initialRange);
+  }
+
   return (
-    <ReservationContext.Provider value={{ range, setRange }}>
+    <ReservationContext.Provider value={{ range, setRange, resetRange }}>
       {children}
     </ReservationContext.Provider>
   );

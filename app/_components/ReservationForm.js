@@ -1,6 +1,20 @@
 "use client";
 
+import { format } from "date-fns";
+import { useReservation } from "./ReservationContext";
+
 function ReservationForm({ cabin }) {
+  const { range } = useReservation();
+  const dateFormat = "MMMM, dd yyyy";
+
+  // let dateFrom, dateTo;
+  // if (range.from !== undefined) {
+  //   dateFrom = format(range.from, dateFormat);
+  // }
+  // if (range.to !== undefined) {
+  //   dateTo = format(range.to, dateFormat);
+  // }
+
   // CHANGE
   const { maxCapacity } = cabin;
 
@@ -20,6 +34,14 @@ function ReservationForm({ cabin }) {
           <p>{user.name}</p>
         </div> */}
       </div>
+
+      {range.from && range.to ? (
+        <p>
+          {format(range.from, dateFormat)} to {format(range.to, dateFormat)}
+        </p>
+      ) : (
+        <p>Your reservation dates</p>
+      )}
 
       <form className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg">
         <div className="space-y-2">
