@@ -1,9 +1,15 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { auth, signIn, signOut } from "./auth";
-import { deleteBooking, getBookings, updateGuest } from "./data-service";
+import { signIn, signOut } from "./auth";
+import {
+  deleteBooking,
+  getBookings,
+  updateBooking,
+  updateGuest,
+} from "./data-service";
 import isAuth from "./isAuth";
+import { redirect } from "next/navigation";
 
 export async function updateProfile(formData) {
   await isAuth();
@@ -34,6 +40,33 @@ export async function deleteReservation(bookingId) {
 
   await deleteBooking(bookingId);
   revalidatePath("/account/reservations");
+}
+
+export async function updateReservation(formData) {
+  const reservationId = Number(formData.get("reservationId"));
+  // Authentication
+  const session = await isAuth();
+
+  // Authorization
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+
+  if (!guestBookingsIds.includes(reservationId))
+    throw new Error("You are not allowed to update this booking!");
+
+  // Building update data
+  const updateData = {
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 500),
+  };
+
+  // Mutation
+  await updateBooking(reservationId, updateData);
+
+  // Redirection
+  revalidatePath(`/account/reservations/edit/${reservationId}`);
+  revalidatePath("/account/reservations/");
+  redirect("/account/reservations");
 }
 
 export async function signInAction() {

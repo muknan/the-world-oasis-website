@@ -202,10 +202,8 @@ export async function updateBooking(id, updatedFields) {
     .select()
     .single();
 
-  if (error) {
-    console.error(error);
-    throw new Error("Booking could not be updated");
-  }
+  if (error) throw new Error("Booking could not be updated");
+
   return data;
 }
 
